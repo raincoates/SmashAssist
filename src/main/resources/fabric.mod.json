@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "auto-smash",
+  "id": "smash-assist",
   "version": "${version}",
-  "name": "AutoSmash",
+  "name": "SmashAssist",
   "description": "Rapid Mace Attacks",
   "authors": [
-    "Indecis"
+    "raincoates"
   ],
   "contact": {
     "repo": "https://github.com/raincoates"
