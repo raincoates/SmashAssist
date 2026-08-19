@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "auto-smash",
+  "version": "${version}",
+  "name": "AutoSmash",
+  "description": "Rapid Mace Attacks",
+  "authors": [
+    "Indecis"
+  ],
+  "contact": {
+    "repo": "https://github.com/raincoates"
+  },
+  "icon": "assets/template/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "com.example.addon.Addon"
+    ]
+  },
+  "mixins": [
+    "addon-template.mixins.json",
+    "smashassist.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "225,25,25"
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": ["${mc_version}"],
+    "meteor-client": "*"
+  }
+}

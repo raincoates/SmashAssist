@@ -1,0 +1,26 @@
+{
+  "mappings": {
+    "com/example/addon/mixin/ExampleMixin": {
+      "<init>": "Lnet/minecraft/class_310;<init>(Lnet/minecraft/class_542;)V"
+    },
+    "com/example/addon/mixin/IEntityAccessor": {
+      "fallDistance": "field_6017:D"
+    },
+    "com/example/addon/mixin/ILivingEntityAccessor": {
+      "lastAttackedTicks": "field_6273:I"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/example/addon/mixin/ExampleMixin": {
+        "<init>": "Lnet/minecraft/class_310;<init>(Lnet/minecraft/class_542;)V"
+      },
+      "com/example/addon/mixin/IEntityAccessor": {
+        "fallDistance": "field_6017:D"
+      },
+      "com/example/addon/mixin/ILivingEntityAccessor": {
+        "lastAttackedTicks": "field_6273:I"
+      }
+    }
+  }
+}

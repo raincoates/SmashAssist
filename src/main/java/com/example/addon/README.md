@@ -1,0 +1,82 @@
+# SmashAssist — Meteor Client Addon
+
+A Meteor Client module that lands full-power Mace "smash attack" hits
+without needing real fall distance — just get in range and it triggers
+on attack.
+
+## What's included
+
+```
+src/main/java/com/example/addon/
+├── Addon.java                        # Addon entrypoint, registers the module
+├── mixin/
+│   ├── IEntityAccessor.java          # exposes Entity#fallDistance
+│   └── ILivingEntityAccessor.java    # exposes LivingEntity#lastAttackedTicks
+└── modules/
+    └── SmashAssist.java              # the actual module
+
+src/main/resources/mixins/smashassist.mixins.json
+```
+
+## Setup
+
+1. Clone the official template (this is what these files are built against):
+   ```
+   git clone --depth 1 https://github.com/MeteorDevelopment/meteor-addon-template smash-assist
+   cd smash-assist
+   ```
+2. Copy the three Java files above into
+   `src/main/java/com/example/addon/` (overwrite `Addon.java`, keep the
+   template's `commands/` and `hud/` folders or delete them if unused).
+3. Copy `smashassist.mixins.json` into `src/main/resources/mixins/` and add it
+   to your `fabric.mod.json`'s `"mixins"` array (alongside the template's own
+   mixin config).
+4. In `gradle.properties`, set `minecraft_version` to `1.21.5` and match the
+   Fabric Loader / Fabric API / Meteor Client dependency versions that
+   correspond to that release (check the template's README/branches or
+   Meteor's Discord `#addon-dev` channel for the exact versions currently
+   targeting 1.21.5 — these move fast and I can't guarantee the numbers
+   I'd guess here are current).
+5. Run the `Minecraft Client` run configuration to test, or `./gradlew build`
+   to produce a jar for your `mods` folder (alongside `fabric-api.jar` and
+   `meteor-client.jar`).
+
+## How it works
+
+Mace smash damage is normally gated by `Entity#fallDistance` exceeding a
+threshold. This module uses Mixin accessors to briefly report a large fall
+distance right before your swing lands (then resets it to `0` immediately
+after, so you don't take real fall damage later), and optionally rewinds
+`LivingEntity#lastAttackedTicks` so the swing always lands at full attack
+strength regardless of timing.
+
+## Where this actually works
+
+- **Singleplayer** — full effect, always, since the integrated server
+  trusts the same entity state the client sets.
+- **A server you host/own/administer** — same story, since you're
+  authoritative there too. Good option for recording a controlled
+  showcase server for the video.
+- **Someone else's multiplayer server** — damage is calculated using
+  *their* server's independently-tracked fall distance for your
+  character. This module does not attempt to fake that out over the
+  network, so on a server you don't control it will just behave like a
+  normal Mace hit. That's intentional — I didn't build packet spoofing
+  to defeat other people's servers/anti-cheat.
+
+## Field name caveat
+
+`fallDistance` and `lastAttackedTicks` are the current Yarn mapping names
+as of the 1.21.x line. If Mojang/Yarn renames these in a future mapping
+update, the mixin accessors will fail to compile with an "unable to
+locate field" error — just search the new mappings on
+[Linkie](https://linkie.shedaniel.dev/) for `fallDistance` /
+`lastAttackedTicks` and swap the string in the `@Accessor` annotation.
+
+## Suggested settings for a clean YouTube capture
+
+- `simulated-fall-distance`: 20–30 (near the vanilla damage cap, very
+  visually dramatic one-shots)
+- `min-ticks-between-smashes`: 6–10 (still looks fast, avoids a single
+  unbroken blur of hits that reads as "obviously scripted" on camera)
+- `require-line-of-sight`: on
