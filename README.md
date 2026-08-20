@@ -27,6 +27,9 @@ strength regardless of timing.
   normal Mace hit. That's intentional — I didn't build packet spoofing
   to defeat other people's servers/anti-cheat.
 
+  TO MAKE THIS WORK ON MULTIPLAYER YOU MUST ALSO DOWNLOAD - https://github.com/sjavi4/ElytraMaceSmasher
+  Every time you fall 1.5 blocks it will be a smash attack and actually do the described effect.
+
 ## Field name caveat
 
 `fallDistance` and `lastAttackedTicks` are the current Yarn mapping names
